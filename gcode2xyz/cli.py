@@ -5,24 +5,29 @@ import sys
 import os.path
 import base64
 
-header = """
-; filename = composition.3w
+header = """; filename = composition.3w
 ; machine = daVinciF10
 ; material = default
 ; layer_height = 0.2
+; fill_density = 0.10
 ; shells = 3
 ; speed = 60
-; total_layers = 1
-; total_filament = 1.0
-; dimension = 200.00:200.00:200.00
+; total_layers = 124
+; total_filament = 2116.02
+; dimension = 50.00:50.00:50.00
 ; extruder = 1
 
 """
 
 
 def convert_gcode_to_3w(input_filename):
-  data = header
-  data += open(input_filename,'rb').read()  
+  data = header # start with the default header
+  input_file = open(input_filename,'rb')
+    
+  input_file.readline() # discard the first line  
+  
+  data += input_file.read() # append the rest of the file
+  
   filename_base, extension = os.path.splitext(input_filename)
   output_filename = filename_base + '.3w'
   out_file = open(output_filename, 'wb')
