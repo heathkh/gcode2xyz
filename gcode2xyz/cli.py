@@ -22,14 +22,13 @@ header = """
 
 def convert_gcode_to_3w(input_filename):
   data = header
-  data += open(input_filename,'r+b').read()  
+  data += open(input_filename,'rb').read()  
   filename_base, extension = os.path.splitext(input_filename)
   output_filename = filename_base + '.3w'
-  out_file = open(output_filename, 'w+b')
+  out_file = open(output_filename, 'wb')
   out_file.write(base64.b64encode(data))
   #out_file.write(data)
   return
-
 
 
 def main():
